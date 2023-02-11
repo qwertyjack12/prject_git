@@ -3,4 +3,5 @@ def new_project():
 
 
 if __name__ == '__main__':
+    print(5)
     print(new_project())
