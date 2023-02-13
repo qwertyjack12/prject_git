@@ -1,7 +1,22 @@
-class ImageFileAcceptor:
-    def __init__(self, extensions):
-        self.extensions = tuple(f'.{i}' for i in extensions)
+class RenderDigit:
+    def __call__(self, num, *args, **kwargs):
+        try:
+            return int(num)
+        except:
+            return
 
-    def __call__(self, *args, **kwargs):
-        print(self.extensions)
-        return args[0].endswith(self.extensions)
+
+class InputValues:
+    def __init__(self, render):
+        self.render = render
+
+    def __call__(self, func):
+        def wrapper(*args, **kwargs):
+            return [self.render(i) for i in func().split()]
+
+        return wrapper
+
+
+input_dg = InputValues(RenderDigit())(input)
+res = input_dg()
+print(res)
